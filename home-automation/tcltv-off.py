@@ -2,7 +2,7 @@
 
 # This is essentially OpenTCLRemote stripped down to bare essentials for the sake of efficiency and simplicity
 
-# The only reason this exists is because HDMI-CEC implementation between AppleTV and my TCL TV is broken for shutdown
+# HDMI-CEC implementation between AppleTV and my TCL TV is broken for shutdown, need alternative
 # I'm turning off TV with this script via Homekit/Homebridge integration, separate script wakes TV via AppleTV
 
 # Should work with all TCL / Thomson TVs with SmartTV2 OS (AKA sitatvservice)
