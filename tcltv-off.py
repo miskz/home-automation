@@ -10,10 +10,7 @@
 # list of possible button codes at https://github.com/Zigazou/opentclremote/blob/master/ui/opentclremote.glade
 # TR_KEY_POWER is not listed but works as shutdown command
 
-from socket import (socket, AF_INET, SOCK_DGRAM, SOCK_STREAM, IPPROTO_IP,
-                    IPPROTO_UDP, IP_ADD_MEMBERSHIP, inet_aton, INADDR_ANY,
-                    SOL_SOCKET, SO_REUSEADDR, IP_MULTICAST_TTL)
-import struct
+from socket import (socket, AF_INET, SOCK_STREAM)
 
 def create_action(key_code):
     """Given a key_code, the create_action function generates the XML string
