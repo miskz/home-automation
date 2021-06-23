@@ -7,10 +7,68 @@
 
 # Should work with all TCL / Thomson TVs with SmartTV2 OS (AKA sitatvservice)
 
-# list of possible button codes at https://github.com/Zigazou/opentclremote/blob/master/ui/opentclremote.glade
 # TR_KEY_POWER is not listed but works as shutdown command
 
 from socket import (socket, AF_INET, SOCK_STREAM)
+import sys
+
+args = sys.argv
+print(args)
+
+keymap = {
+    "1": "TR_KEY_1",
+    "2": "TR_KEY_2",
+    "3": "TR_KEY_3",
+    "4": "TR_KEY_4",
+    "5": "TR_KEY_5",
+    "6": "TR_KEY_6",
+    "7": "TR_KEY_7",
+    "8": "TR_KEY_8",
+    "9": "TR_KEY_9",
+    "eco": "TR_KEY_ECO",
+    "source": "TR_KEY_SOURCE",
+    "vol_up": "TR_KEY_VOL_UP",
+    "mute": "TR_KEY_MUTE",
+    "ch_up": "TR_KEY_CH_UP",
+    "vol_down": "TR_KEY_VOL_DOWN",
+    "info": "TR_KEY_INFOWINDOW",
+    "ch_down": "TR_KEY_CH_DOWN",
+    "option": "TR_KEY_OPTION",
+    "smart": "TR_KEY_SMARTTV",
+    "guide": "TR_KEY_GUIDE",
+    "menu": "TR_KEY_MAINMENU",
+    "up": "TR_KEY_UP",
+    "ok": "TR_KEY_OK",
+    "left": "TR_KEY_LEFT",
+    "right": "TR_KEY_RIGHT",
+    "back": "TR_KEY_BACK",
+    "down": "TR_KEY_DOWN",
+    "exit": "TR_KEY_EXIT",
+    "zoom_down": "TR_KEY_ZOOM_DOWN",
+    "zoom_up": "TR_KEY_ZOOM_UP",
+    "list": "TR_KEY_LIST",
+    "sleep": "TR_KEY_SLEEP",
+    "pre_ch": "TR_KEY_PRE_CH",
+    "favorite": "TR_KEY_FAVORITE",
+    "record": "TR_KEY_REC",
+    "red": "TR_KEY_RED",
+    "green": "TR_KEY_GREEN",
+    "yellow": "TR_KEY_YELLOW",
+    "blue": "TR_KEY_BLUE",
+    "power": "TR_KEY_POWER"
+}
+
+try:
+    tcl_command = keymap[args[1]]
+except Exception as zonk:
+    tcl_command = "TR_KEY_VOL_POWER"
+
+try:
+    tcl_host = args[2]
+except Exception as zonk:
+    tcl_host = "192.168.1.198"
+
+print(tcl_command)
 
 def create_action(key_code):
     """Given a key_code, the create_action function generates the XML string
@@ -42,11 +100,9 @@ class RemoteController:
 # It is possible to search for all TVs using UPNP and send command to the first one available
 # This process takes time though and I want command to be sent instantly, hence manually added IP
 
-tcl_host = "192.168.1.198"
-
 try:
     remote_controller = RemoteController(tcl_host)
-    remote_controller.press_key("TR_KEY_POWER")
+    remote_controller.press_key(tcl_command)
 
 except Exception as zonk:
     print(f"{zonk}")
