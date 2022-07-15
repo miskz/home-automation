@@ -13,7 +13,6 @@ from socket import (socket, AF_INET, SOCK_STREAM)
 import sys
 
 args = sys.argv
-print(args)
 
 keymap = {
     "1": "TR_KEY_1",
@@ -61,14 +60,14 @@ keymap = {
 try:
     tcl_command = keymap[args[1]]
 except Exception as zonk:
+    print("No key specified, defaulting to power off.")
     tcl_command = "TR_KEY_VOL_POWER"
 
 try:
     tcl_host = args[2]
 except Exception as zonk:
+    print("No host specified, defaulting to predefined host.")
     tcl_host = "192.168.1.198"
-
-print(tcl_command)
 
 def create_action(key_code):
     """Given a key_code, the create_action function generates the XML string
@@ -101,6 +100,7 @@ class RemoteController:
 # This process takes time though and I want command to be sent instantly, hence manually added IP
 
 try:
+    print(f"Sending {tcl_command} to {tcl_host}.")
     remote_controller = RemoteController(tcl_host)
     remote_controller.press_key(tcl_command)
 
